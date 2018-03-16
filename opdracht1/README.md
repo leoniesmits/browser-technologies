@@ -1,7 +1,7 @@
 # API Stadsarchief Amsterdam
 
 This is the project I made for the OBA project week. 
-[link to the project](https://leoniesmits.github.io/browser-technologies/)
+[link to the project](https://leoniesmits.github.io/project1-Quick-Hack-Prototype/)
 ![preview of the page](images/preview.png)
 
 ## 8 Progressive enhancement features 
