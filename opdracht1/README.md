@@ -43,7 +43,7 @@ var directive = {
 ##### Name of the series
 There is another bug, the name of the series. I gave them a negative margin to position it, but without images it falls over other elements. 
 
-### Font
+### 2. Font
 All fonts I use are custom fonts, I haven't even tried to set a pretty fallback font. As we did in Performance matters, I could load the fonts asynchronized. This way, the standard font is shown first and the custom font takes over when it's done loading. The <noscript> is used to set a fallback that doesn't need javascript.
 ```css
 <link rel="preload" href="/path/css/file.css" as="style" onload="this.rel='stylesheet'">
@@ -51,8 +51,10 @@ All fonts I use are custom fonts, I haven't even tried to set a pretty fallback 
 ```
 Instead of just defining the font in every CSS element, I could set up a new file with @font-face to use stacks of fonts and set fallbacks easier. 
 
-### Color
-On the site [toptal](https://www.toptal.com/designers/colorfilter) I tested for all color blindness. These are the results: 
+### 3. Color
+On the site [toptal](https://www.toptal.com/designers/colorfilter) I tested for all color blindness. 
+I think the results are pretty good, since I stuck with one color and one grey. The contrast is alright, although the font makes the yellowish orange I used a little harder to read. I could experiment with making it darker.
+These are the results: 
 
 > Left: original, right: colorblind version
 #### Protanopia
@@ -64,7 +66,7 @@ On the site [toptal](https://www.toptal.com/designers/colorfilter) I tested for 
 ### Greyscale
 ![grey](images/color.grey.png)
 
-### Breedband Internet
+### 4. Breedband Internet
 > I tested in Chrome on Slow 3G network
 
 Didn't really go well. Fetching the API takes a long time and without the API I have no content. 
@@ -74,15 +76,16 @@ A solution would be to request just a few images with the API call. Only problem
 
 This problem is the biggest one so far, and finding a solution will take me some more time.
 
-### Trackpad
+### 5. Trackpad
 Luckily, I noted this while working on the project, so the page has a "skip to slider" -button. This directs the user to the slider, which can be used with the arrow keys. 
+![skip to slider](images/skip.png)
 ##### Slider
 There is a problem with getting from the slider to the images, as it starts at the bottom and isn't visible directly. I've played with the HTML of the slider, maybe putting it at the top in the DOM. This way, focussing on the slider seems smoother. Maybe the tab-index of the slider needs to be set, as the user needs to go back to this element at any time. 
 ##### Grid
 Back to the grid, as this causes multiple problems. The grid is set up vertically, which causes the focus to go up and down on tab. This can be confusing and frustrating to the user. The pictures that are next to each other in the screen, are actually pretty far away from each other in accessibility. 
 
 
-### Javascript
+### 6. Javascript
 Since my Javascript fetches the API and injects this to the HTML, without it there is nothing to show. Only the loader and slider are visible. An infinite loader and slider that goes nowhere. Very sad.
 
 Unfortunately, there isn't much to do about this problem. As mentioned before, maybe loading in the first 44 photo's will narrow down the frustration users without javascript will feel. 
@@ -98,4 +101,12 @@ Unfortunately, there isn't much to do about this problem. As mentioned before, m
     - Figure out the grid for the images (like this [pretty grid](https://codepen.io/bcwang/pen/OxRMeb?editors=0110)). The grid needs to be horizontally made up.
     - Right now, all images are .jpg files. I need to figure out if I can compress them.
     - A fixed width/height for the images could help the structure when the images are loading or when just one doesn't work
-- 
+- font
+    - Load async
+- color
+    - Play with a little darker detail color
+- breedband
+    - Loading the first few images could prevent the user from seeing nothing for a really long time
+- trackpad 
+    - Play with the positioning of the slider
+    - Way more :focus and :focus-within styling, it's pretty unclear now.
