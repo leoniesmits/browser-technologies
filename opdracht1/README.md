@@ -1,7 +1,7 @@
 # API Stadsarchief Amsterdam
 
 This is the project I made for the OBA project week. 
-[link to the project](https://leoniesmits.github.io/fe3-assessment-3/)
+[link to the project](https://leoniesmits.github.io/browser-technologies/)
 ![preview of the page](images/preview.png)
 
 ## 8 Progressive enhancement features 
@@ -77,7 +77,7 @@ A solution would be to request just a few images with the API call. Only problem
 This problem is the biggest one so far, and finding a solution will take me some more time.
 
 ### 5. Trackpad
-Luckily, I noted this while working on the project, so the page has a "skip to slider" -button. This directs the user to the slider, which can be used with the arrow keys. 
+Luckily, I noted this while working on the project, so the page has a "skip to slider" -button. This directs the user to the slider, which can be used with the arrow keys. This is only accessable with the tab-key, so doesn't disturb users who use the mouse. 
 ![skip to slider](images/skip.png)
 ##### Slider
 There is a problem with getting from the slider to the images, as it starts at the bottom and isn't visible directly. I've played with the HTML of the slider, maybe putting it at the top in the DOM. This way, focussing on the slider seems smoother. Maybe the tab-index of the slider needs to be set, as the user needs to go back to this element at any time. 
@@ -109,4 +109,8 @@ Unfortunately, there isn't much to do about this problem. As mentioned before, m
     - Loading the first few images could prevent the user from seeing nothing for a really long time
 - trackpad 
     - Play with the positioning of the slider
-    - Way more :focus and :focus-within styling, it's pretty unclear now.
+    - Way more :focus and :focus-within styling, it's pretty unclear now
+- breedband
+    - With slow or unstable internet, this page is very frustrating. There has to be something on the screen while loading.
+    - 
+
