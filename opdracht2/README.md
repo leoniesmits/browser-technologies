@@ -17,3 +17,94 @@ Beoordelingscriteria
   - Bronnen van uitleg en gebruikte artikelen.
   -	Welke browsers/devices ondersteunen deze wel/niet.
   -	Een beschrijving hoe de fallback werkt.
+
+## Feature: Accordion
+
+The elements I used to achieve the accordion feature, are the `<details>` and `<summary>` HTML5 elements. The `<details>` element generates a widget to show and hide element contents by clicking on the `<summary>` element, which is its child.
+
+#### Details & Summary elements
+> Global usage % of all users = 89,65% 
+
+browser | support | support since
+-----|-------|--------------
+Internet Explorer | no | - 
+Edge | no | -
+Firefox | yes | 2016
+Chrome | yes | 2011
+Safari | yes | 2012
+Safari/Chrome iOS| yes | 2013
+Opera Mini | no | -
+Chrome for Android | yes | 2018
+UC for Android| yes | 2016
+Samsung Internet | yes | 2016
+
+I made up the HTML like this and tested it in some browsers: 
+```HTML
+<section>
+    <details>
+        <summary>Good design is innovative</summary>
+        <p>The possibilities for innovation are not, by any means, exhausted. 
+            Technological development is always offering new opportunities for innovative design. 
+            But innovative design always develops in tandem with innovative technology, and can never be an end in itself.</p>
+    </details>
+    <details>
+        <summary>Good design makes a product useful</summary>
+        <p>A product is bought to be used. It has to satisfy certain criteria, not only functional, but also psychological and aesthetic. 
+            Good design emphasises the usefulness of a product whilst disregarding anything that could possibly detract from it.</p>
+    </details>
+    <details>
+        <summary>Good design is aesthetic</summary>
+        <p>The aesthetic quality of a product is integral to its usefulness because products we use every day affect our person and our well-being. 
+            But only well-executed objects can be beautiful.</p>
+    </details>
+</section>
+```
+
+First I ofcourse tested this in my own browser, Chrome 65. I was surprised that this feature works with just HTML, no Javascript or styling needed. Then I started testing browsers that don't support these HTML elements.
+I used [browserling](https://www.browserling.com/internet-explorer-testing) to test for IE9 (which was free, other versions were paid). I pushed this element on github and opened it in browserling.![browserling](browserling.png)
+Testing the accordion on Internet Explorer 9
+![ie9](ie9-testing.png)
+On Firefox 45 (2016)
+![firefox45](firefox45-testing.png)
+On Opera Mini
+![operamini-testing](oparamini-testing.jpeg)
+
+_On a side note; this element DOES work in .md files._
+<details>How crazy is that</details>
+
+#### Fixing the problem
+First thing to do, was checking if the browser supports the `<details>` element. I found this [source](https://mathiasbynens.be/notes/html5-details-jquery) about a `<details>` fallback using jQuery from 2010. It had a vanilla JS solution, but stated that 
+> "the `open` attribute is recognized, but doesn't support rendering the element correctly yet." 
+So this is unreliable, but a start. 
+
+```javascript
+if (!('open' in document.createElement('details'))) {
+ 		document.documentElement.className += ' no-details';
+  }
+```
+The first line checks if the browser supports the detail tag. That's what I need to proceed. 
+
+```javascript
+(function () {
+    "use strict";
+        var header = document.querySelector(".header");
+        if (!("open" in document.createElement("details"))) {
+            var summary = document.getElementsByTagName("summary");
+            var summaryLength = summary.length, i, toggleDetails = function(details) {
+                details.className = details.className == "enriched" ? "enriched open" : "enriched";
+            };
+            for (i = 0; i < summaryLength; i++) {
+                summary[i].onclick = function() {
+                    toggleDetails(this.parentNode);
+                };
+                summary[i].onkeypress = function(ev) {
+                    if (ev.keyCode == 13 || ev.keyCode == 32) {
+                        toggleDetails(this.parentNode);
+                        ev.preventDefault();
+                    }
+            };
+            summary[i].parentNode.className = "enriched";
+            }
+        }
+    });
+```

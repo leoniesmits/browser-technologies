@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Accordion</title>
+        <style>
+            .terms {
+                position: fixed;
+                background-color: rgba(255, 255, 255, 0.65);
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                z-index: 999;
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.3s;
+            }
+            p {
+                color:blue;
+            }
+
+        </style>
+    </head>
+    <body>
+        <section>
+                <form action="/" method="post">
+                <p>
+                    <input type="checkbox" id="taste_1" name="taste_cherry" value="1">
+                    <label for="taste_1">I accept the terms and conditions</label>
+                </p>
+            </form>
+            <a class="openmodal">View the terms and conditions</a>
+        </section>
+        <section class="#terms" class="terms">
+            <article>
+                <a id="closemodal">Close</a>
+                <h1>Restrictions</h1>
+                <ul>You are expressly and emphatically restricted from all of the following:
+                    <li>publishing any Website material in any media;</li>
+                    <li>using this Website in any way that is, or may be, damaging to this Website;</li>
+                    <li>using this Website in any way that impacts user access to this Website;</li>
+                    <li>using this Website contrary to applicable laws and regulations, or in a way that causes, or may cause, harm to the Website, or to any person or business entity;</li>
+                    <li>engaging in any data mining, data harvesting, data extracting or any other similar activity in relation to this Website, or while using this Website;</li>
+                    <li>using this Website to engage in any advertising or marketing;</li>
+                    <p>Certain areas of this Website are restricted from access by you and this company may further restrict access by you to any areas of this Website, at any time, in its sole and absolute discretion.  Any user ID and password you may have for this Website are confidential and you must maintain confidentiality of such information.</p>
+                </ul>
+                <a class="closemodal">I understand</a>
+            </article>
+        </section>
+    </body>
+</html>
+
+
+
+
+
+
