@@ -1,3 +1,8 @@
+<!-- TO DO:
+- check de features
+- styling: cursor
+-  -->
+
 <!DOCTYPE html>
     <head>
         <meta charset="UTF-8">
@@ -27,6 +32,25 @@
                     But only well-executed objects can be beautiful.</p>
             </details>
         </section>
+
+        <script>
+                
+   (function () {
+    "use strict";
+        var header = document.querySelector(".header");
+        if (!("open" in document.createElement("details"))) {
+            var summary = document.getElementsByTagName("summary");
+            for (var i = 0; i < summary.length; i++) {
+                summary[i].parentNode.childNodes[3].classList.add("hidden");
+                summary[i].addEventListener("click", function(e) {
+                    this.parentNode.childNodes[3].classList.add("shown")
+                })
+            }
+        }
+    });
+
+
+        </script>
     </body>
 </html>
 
