@@ -87,13 +87,13 @@ The first line checks if the browser supports the detail tag. That's what I need
 ```javascript
 (function () {
     "use strict";
-        var header = document.querySelector(".header");
         if (!("open" in document.createElement("details"))) {
             var summary = document.getElementsByTagName("summary");
             for (var i = 0; i < summary.length; i++) {
                 summary[i].parentNode.childNodes[3].classList.add("hidden");
                 summary[i].addEventListener("click", function(e) {
-                    this.parentNode.childNodes[3].classList.add("shown")
+                  parentNode.childNodes[3].classList.remove("shown")
+                  this.parentNode.childNodes[3].classList.add("shown")
                 })
             }
         }
