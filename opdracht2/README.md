@@ -90,20 +90,11 @@ The first line checks if the browser supports the detail tag. That's what I need
         var header = document.querySelector(".header");
         if (!("open" in document.createElement("details"))) {
             var summary = document.getElementsByTagName("summary");
-            var summaryLength = summary.length, i, toggleDetails = function(details) {
-                details.className = details.className == "enriched" ? "enriched open" : "enriched";
-            };
-            for (i = 0; i < summaryLength; i++) {
-                summary[i].onclick = function() {
-                    toggleDetails(this.parentNode);
-                };
-                summary[i].onkeypress = function(ev) {
-                    if (ev.keyCode == 13 || ev.keyCode == 32) {
-                        toggleDetails(this.parentNode);
-                        ev.preventDefault();
-                    }
-            };
-            summary[i].parentNode.className = "enriched";
+            for (var i = 0; i < summary.length; i++) {
+                summary[i].parentNode.childNodes[3].classList.add("hidden");
+                summary[i].addEventListener("click", function(e) {
+                    this.parentNode.childNodes[3].classList.add("shown")
+                })
             }
         }
     });
