@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="http://sstatic.net/stackoverflow/img/favicon.ico">
+	<title>Chatbot</title>
+	<style>
+		body { 
+			color: #421; 
+			font-weight: bold; 
+			font-size: 18px; 
+			background: #EE4; 
+			background-repeat: repeat-y;
+			width: 100wh;
+			height: 90vh;
+			color: #fff;
+			/* background: linear-gradient(-45deg, rgb(228, 108, 72), #E73C7E, #23A6D5, #23D5AB); */
+			background: linear-gradient(-45deg, rgb(56, 109, 255), #23A6D5, #23D5AB, rgb(255, 218, 6), rgb(255, 147, 6));
+			background-size: 400% 400%;
+			-webkit-animation: Gradient 15s ease infinite;
+			-moz-animation: Gradient 15s ease infinite;
+			animation: Gradient 15s ease infinite;
+		}
+
+		@-webkit-keyframes Gradient {
+			0% {
+				background-position: 0% 50%
+			}
+			50% {
+				background-position: 100% 50%
+			}
+			100% {
+				background-position: 0% 50%
+			}
+		}
+
+		@-moz-keyframes Gradient {
+			0% {
+				background-position: 0% 50%
+			}
+			50% {
+				background-position: 100% 50%
+			}
+			100% {
+				background-position: 0% 50%
+			}
+		}
+
+		@keyframes Gradient {
+			0% {
+				background-position: 0% 50%
+			}
+			50% {
+				background-position: 100% 50%
+			}
+			100% {
+				background-position: 0% 50%
+			}
+		} 
+
+		span { 
+			color: #711; 
+		} 
+		::-webkit-input-placeholder { 
+			color: #711 
+		}
+
+		#main { 
+			position: fixed; 
+			top: 40%; 
+			right: 60px; 
+			width: 400px; 
+			border: 0px solid #421; 
+			padding: 40px; 
+		}
+		#main div { 
+			margin: 10px; 
+		} 
+		#input { 
+			border: 0; background: #fff; 
+			padding: 5px; 
+			border: 1px solid #421; 
+		}
+	</style>
+</head>
+<body>
+	<div id="main">
+		<div>chatbot: <span id="chatbot-start"></span></div>
+		<div>user: <span id="user"></span></div>
+		<div>chatbot: <span id="chatbot"></span></div>
+		<div><input id="input" type="text" placeholder="stel een vraag" autocomplete="off"/></div>
+	</div>
+	<script type="text/javascript">
+		var trigger = [
+			["hi","hey","hello","hoi","hallo","hai","heey","hooi"], 
+			["alles goed", "hoe gaat het", "hoe gaat het met je", "whats up"],
+			["kun je me helpen", "kun je iets voor me doen","help me"],
+			["iframe werkt niet", "iframe", "iframe doet het niet"], // de vragen
+			["wie ben je", "wat ben je", "ben je een robot", "ben je menselijk"],
+			["wat is je naam",  "je naam", "hoe heet je", "hoe heet jij"],
+			["i love you", "ik hou van je"],
+			["het werkt nog steeds niet", "het werkt niet", "het lukt niet", "doet het niet", "hij werkt niet", "lukt niet", "werkt niet"],
+			["ik heef het op"],
+			["help me", "je moet me helpen", "help"],
+			["ah", "oke", "ok", "okay", "nice", "thanks", "dankje", "dankjewel"],
+			["ja"],
+			["nee"],
+			["doei", "bye", "tot later", "tot morgen"]
+		];
+		var answer = [
+			["Hoi","Hallo","Hey!","Hi!","Pindakaas!", "Hooi"], 
+			["Goed", "Heel goed", "Geweldig hoor"],
+			["Zeg het maar", "Zal het proberen", "zeg het maar"],
+			["Gebruik je de juiste quotes? Curly quotes zijn niet hetzelfde als rechte", "Controleer op typfouten", "Staat de iframe in het juiste domein? Dit heeft effect op de display"], // de antwoorden
+			["Ik ben maar een eitje", "Ik ben een robot"],
+			["Ik heb geen naam"],
+			["Ik ook van jou", "ok"],
+			["Probeer het later nog eens", "Hoera!", "Kun je het probleem herhalen?", "Heb je geprobeerd het aan en uit te zetten?"],
+			["Haal diep adem en leg je probleem nog eens uit"],
+			["Hoe kan ik je helpen?", "Vertel me je probleem", "Ik zal mijn best doen"],
+			["Heeft dit je probleem opgelost?", "Heeft dat gewerkt?"],
+			["Hopelijk kun je nu weer verder"],
+			["Kun je je probleem anders omschrijven?"],
+			["Tot volgende keer!", "Hopelijk tot nooit!"]
+		];
+		var alternative = ["Uuuuuh..", "Kun je dat herhalen?", "Kun je dat anders formuleren?"];
+		document.querySelector("#input").addEventListener("keypress", function(e){
+			var key = e.which || e.keyCode;
+			if(key === 13){ //Enter button
+				var input = document.getElementById("input").value;
+				document.getElementById("user").innerHTML = input;
+				output(input);
+			}
+		});
+
+		// function to manage the output, input by user is given as parameter 
+		function output(input){
+			try {
+				var product = input + "=" + eval(input);
+				console.log(product)
+			} catch(e){
+				var text = (input.toLowerCase()).replace(/[^\w\s\d]/gi, ""); //remove all chars except words, space and 
+				text = text.replace(/ a /g, " ").replace(/i feel /g, "").replace(/whats/g, "what is").replace(/please /g, "").replace(/ please/g, "");
+				if(compare(trigger, answer, text)){
+					var product = compare(trigger, answer, text);
+				} else {
+					var product = alternative[Math.floor(Math.random()*alternative.length)];
+				}
+			}
+			document.getElementById("chatbot").innerHTML = product;
+			speak(product);
+			document.getElementById("input").value = ""; //clear input value
+		}
+
+		// in this function, the parameters are the triggers, the answers and the string the user had typed in
+		// the value of the string has to be equal to the triggers and be matched with an answer
+		// for every trigger and answer, a for loop is written to check if the string matches 
+		// if the trigger (ordered with x and y values, counts from 0) is equal to the typed in value
+		// the right answer is given back in an array
+		// then with Math.floor(Math.random) a random string from the array is picked
+		function compare(arr, array, string){
+			var item;
+			for(var x = 0; x<arr.length; x++){
+				for(var y = 0; y<array.length; y++){
+					if(arr[x][y] == string){
+						items = array[x];
+						item =  items[Math.floor(Math.random()*items.length)];
+					}
+				}
+			}
+			return item;
+		}
+
+
+		function speak(string){
+			var utterance = new SpeechSynthesisUtterance();
+			// utterance.voice = speechSynthesis.getVoices().filter(function(voice){return voice.name == "Agnes";})[0];
+			utterance.text = string;
+			utterance.lang = "nl-BE";
+			utterance.volume = 1; //0-1 interval
+			utterance.rate = 0.8;
+			utterance.pitch = 0.5; //0-2 interval
+			speechSynthesis.speak(utterance);
+		}
+	</script>
+</body>
+</html>
