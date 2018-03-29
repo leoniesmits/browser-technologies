@@ -1,3 +1,5 @@
+[linkje hier](https://leoniesmits.github.io/browser-technologies/opdracht3/)
+
 # Browser Technologies
 //Robuuste, toegankelijke websites leren bouwen …
 
@@ -46,4 +48,8 @@ Hier is de pagina te zien op Internet Explorer 8 in mijn Virtual Box.
 
 Dan is er nog [Speech Synthesis.](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisUtterance) Deze API leest de tekst voor aan de gebruiker.  
 
+## Accessibility
 
+Op 28 maart kregen we in Schiphol een presentatie over toegankelijkheid. We zagen hoe Tom, die blind is, een computer bedient en het internet bekijkt. Dit was heel nuttig om te zien, ik besefte me dat een blind iemand niet wil "skippen naar de inhoud" als hij niet weet waar hij is. Tom liet zien hoe hij de hele pagina "bekijkt" voordat hij een actie uitvoert. De Speech Synthesis die ik heb gebruikt werkt goed samen met de screenreader van Mac. De computer vertelt: "Chatbot: hoe kan ik helpen. Invoerveld. "Stel een vraag"". Hierdoor weet de gebruiker waar hij is en wat hij kan doen.
+
+De screenreader van Mac leest niet de gegenereerde antwoorden voor tenzij hierop geklikt wordt. Deze worden voorgelezen door mijn API. Hierdoor lijkt het op een echt gesprek. 
